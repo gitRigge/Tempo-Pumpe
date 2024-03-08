@@ -161,3 +161,8 @@ cython_debug/
 
 # VS Code
 *.code-workspace
+
+# Others
+/logs
+/archive
+.issues.yml

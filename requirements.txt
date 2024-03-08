@@ -1,2 +1,3 @@
-PyYAML==6.0.1
+atlassian-python-api
+PyYAML
 tempo-api-python-client

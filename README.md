@@ -18,7 +18,9 @@ These environment variables are required
 
 * "TEMPO_ACCOUNT_ID" = "your_jira_account_id"
 * "TEMPO_TOKEN" = "your_tempo_api_key"
-
+* "JIRA_USER" = "your_jira_username"
+* "JIRA_BASE_URL" = "your_jira_base_url"
+* "JIRA_TOKEN" = "your_jira_api_token"
 
 ### Additional optional environment variables
 
