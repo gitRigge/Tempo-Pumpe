@@ -71,10 +71,12 @@ with open(args.worklog, 'r') as file:
     content = yaml.safe_load(file)
 
 imports_ok = False
+most_recent_logs = ''
 
 if len(content):
     logged = {}
     for i in content:
+        most_recent_logs = '#{}\n'.format(i.isoformat())
         for wlog_str in content[i]:
             hours = wlog_str.split(' ')[0]
             start_time = wlog_str.split(' ')[1]
@@ -88,6 +90,8 @@ if len(content):
                 logging.log(logging.INFO, msg)
                 imports_ok = False
             date_from = i.isoformat()
+            most_recent_logs = most_recent_logs + '#- {} {} {} {}\n'.format(
+                hours, start_time, issue_key, description)
             try:
                 logged_wl = tempo.create_worklog(
                     accountId=account_id,
@@ -121,5 +125,10 @@ if imports_ok:
     os.replace(args.worklog, 'archive/worklog_{}.yml'.format(file_suffix))
     msg = 'Worklog file archived'
     logging.log(logging.INFO, msg)
+
+# Neues YML-Template anlegen
+if imports_ok:
+    with open(args.worklog, 'w') as file:
+        file.write(most_recent_logs)
 
 sys.exit(0)
