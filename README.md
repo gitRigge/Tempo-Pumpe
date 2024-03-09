@@ -9,7 +9,7 @@ See 'requirements.txt'
 
 ## Configuration
 
-'worklog_pumpe' requires some environment variables to run properly
+'tempo_pumpe' requires some environment variables to run properly
 
 
 ### Required environment variables
@@ -33,7 +33,7 @@ These environment variables are optional
 
 ## Sample 'worklogs.yml'
 
-'worklog_pumpe' reads your worklogs from a YAML file like this
+'tempo_pumpe' reads your worklogs from a YAML file like this
 
 ```
 2017-02-06:
@@ -47,7 +47,7 @@ These environment variables are optional
 Run the following command
 
 ```
-python3 worklog_pumpe.py -i worklogs.yml
+python3 tempo_pumpe.py worklogs.yml
 ```
 
 
