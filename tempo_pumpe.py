@@ -54,7 +54,7 @@ logging.basicConfig(
     level=logging.INFO)
 
 parser = argparse.ArgumentParser()
-parser.add_argument('worklog')
+parser.add_argument('worklogs', help='Path to worklogs file')
 args = parser.parse_args()
 
 # Tempo REST Client
@@ -67,7 +67,7 @@ tempo = client_v4.Tempo(
 issue_keys,issue_ids = get_issues()
 
 # Worklogs
-with open(args.worklog, 'r') as file:
+with open(args.worklogs, 'r') as file:
     content = yaml.safe_load(file)
 
 imports_ok = False
@@ -122,13 +122,13 @@ if len(logged) > 0 and imports_ok:
 # YML-Datei ins Archiv verschieben
 if imports_ok:
     file_suffix = datetime.now().strftime('%Y%m%d%H%M%S')
-    os.replace(args.worklog, 'archive/worklog_{}.yml'.format(file_suffix))
+    os.replace(args.worklogs, 'archive/worklog_{}.yml'.format(file_suffix))
     msg = 'Worklog file archived'
     logging.log(logging.INFO, msg)
 
 # Neues YML-Template anlegen
 if imports_ok:
-    with open(args.worklog, 'w') as file:
+    with open(args.worklogs, 'w') as file:
         file.write(most_recent_logs)
 
 sys.exit(0)
