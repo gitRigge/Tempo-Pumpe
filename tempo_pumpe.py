@@ -7,11 +7,14 @@ from datetime import datetime
 from tempoapiclient import client_v4
 from atlassian import Jira
 
+
 def calculate_seconds(hours: float):
     return int(hours*60*60)
 
+
 def calculate_hours(seconds: int):
     return float(seconds/60/60)
+
 
 def get_issues():
     ids = {}
@@ -21,13 +24,15 @@ def get_issues():
         ids[keys[i]] = i
     return keys, ids
 
+
 def set_issues(issue_key: str, issue_id: int, summary: str):
     with open('.issues.yml', 'a') as file:
-        file.write('{}: {}\t#{}'.format(issue_key, issue_id, summary))
+        file.write('\n{}: {} # {}'.format(issue_key, issue_id, summary))
+
 
 def get_issue_id(issue_key: str):
-    global issue_keys
-    if not issue_key in issue_keys:
+    global issue_keys, issue_ids
+    if issue_key not in issue_keys:
         # JIRA Rest Client
         jira = Jira(
             url=os.getenv("JIRA_BASE_URL"),
@@ -37,15 +42,18 @@ def get_issue_id(issue_key: str):
         )
         # API Call
         try:
-            issue = jira.issue(key=issue_key, fields='id')
+            issue = jira.issue(key=issue_key, fields='id,summary')
             issue_id = issue['id']
             summary = issue['fields']['summary']
             set_issues(issue_key, issue_id, summary)
+            issue_keys[issue_key] = issue_id
+            issue_ids[issue_id] = issue_key
             return int(issue_id)
         except Exception:
             return -1
     else:
         return issue_keys[issue_key]
+
 
 logging.basicConfig(
     filename=r'logs\worklog_pumpe.log',
@@ -64,7 +72,7 @@ tempo = client_v4.Tempo(
 )
 
 # Recent issues
-issue_keys,issue_ids = get_issues()
+issue_keys, issue_ids = get_issues()
 
 # Worklogs
 with open(args.worklogs, 'r') as file:
