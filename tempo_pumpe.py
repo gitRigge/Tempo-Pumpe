@@ -6,6 +6,7 @@ import argparse
 from datetime import datetime
 from tempoapiclient import client_v4
 from atlassian import Jira
+from dotenv import load_dotenv
 
 
 def calculate_seconds(hours: float):
@@ -54,6 +55,8 @@ def get_issue_id(issue_key: str):
     else:
         return issue_keys[issue_key]
 
+
+load_dotenv()
 
 logging.basicConfig(
     filename=r'logs\worklog_pumpe.log',
