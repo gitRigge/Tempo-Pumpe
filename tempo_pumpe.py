@@ -92,7 +92,7 @@ if len(content):
             hours = wlog_str.split(' ')[0]
             start_time = wlog_str.split(' ')[1]
             issue_key = wlog_str.split(' ')[2]
-            description = wlog_str.split(' ')[3:]
+            description = " ".join(wlog_str.split(' ')[3:])
             time_spent_seconds = calculate_seconds(float(hours))
             account_id = os.getenv("TEMPO_ACCOUNT_ID")
             issue_id = get_issue_id(issue_key)
