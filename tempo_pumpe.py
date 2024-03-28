@@ -87,7 +87,7 @@ most_recent_logs = ''
 if len(content):
     logged = {}
     for i in content:
-        most_recent_logs = '#{}\n'.format(i.isoformat())
+        most_recent_logs = '#{}:\n'.format(i.isoformat())
         for wlog_str in content[i]:
             hours = wlog_str.split(' ')[0]
             start_time = wlog_str.split(' ')[1]
