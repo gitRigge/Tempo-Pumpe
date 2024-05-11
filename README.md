@@ -1,5 +1,5 @@
 # Tempo-Pumpe
-Tool to push worklogs to Tempo Timesheets / Atlassian JIRA
+Tool to push worklogs locally stored in a TXT file to Tempo Timesheets / Atlassian JIRA
 
 
 ## Requirements
