@@ -110,7 +110,8 @@ if len(content):
                     dateFrom=date_from,
                     timeSpentSeconds=time_spent_seconds,
                     description=description,
-                    startTime=start_time
+                    startTime=start_time,
+                    billableSeconds=time_spent_seconds
                 )
                 if logged_wl['issue']['id'] not in issue_ids:
                     issue_ids[logged_wl['issue']['id']] = issue_key
