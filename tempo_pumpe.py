@@ -10,14 +10,42 @@ from dotenv import load_dotenv
 
 
 def calculate_seconds(hours: float):
+    """
+    Converts a time duration from hours to seconds.
+
+    Args:
+        hours (float): The number of hours to convert.
+
+    Returns:
+        int: The equivalent duration in seconds.
+    """
     return int(hours*60*60)
 
 
 def calculate_hours(seconds: int):
+    """
+    Converts a duration from seconds to hours.
+
+    Args:
+        seconds (int): The duration in seconds.
+
+    Returns:
+        float: The equivalent duration in hours.
+    """
     return float(seconds/60/60)
 
 
 def get_issues():
+    """
+    Reads issue keys from a YAML file and returns them along with a mapping of
+    issue values to their keys.
+
+    Returns:
+        tuple: A tuple containing:
+            - keys (dict): The dictionary loaded from the '.issues.yml' file.
+            - ids (dict): A dictionary mapping each value in 'keys' to its
+              corresponding key.
+    """
     ids = {}
     with open('.issues.yml', 'r') as file:
         keys = yaml.safe_load(file)
@@ -27,11 +55,39 @@ def get_issues():
 
 
 def set_issues(issue_key: str, issue_id: int, summary: str):
+    """
+    Appends issue information to the '.issues.yml' file.
+
+    Args:
+        issue_key (str): The key or identifier for the issue.
+        issue_id (int): The numeric ID of the issue.
+        summary (str): A brief summary or description of the issue.
+
+    The function writes the issue details in the format:
+        <issue_key>: <issue_id> # <summary>
+    to the '.issues.yml' file, creating a new entry for each call.
+    """
     with open('.issues.yml', 'a') as file:
         file.write('\n{}: {} # {}'.format(issue_key, issue_id, summary))
 
 
 def get_issue_id(issue_key: str):
+    """
+    Retrieves the numeric ID of a JIRA issue given its issue key.
+
+    If the issue key is not already cached, fetches the issue details from
+    JIRA using the REST API, caches the issue ID and summary, and returns the
+    issue ID. If the issue key is already cached, returns the cached issue ID.
+
+    Args:
+        issue_key (str): The key of the JIRA issue (e.g., "PROJ-123").
+
+    Returns:
+        int: The numeric ID of the JIRA issue, or -1 if retrieval fails.
+
+    Raises:
+        Exception: If an unexpected error occurs during issue retrieval.
+    """
     global issue_keys, issue_ids
     if issue_key not in issue_keys:
         # JIRA Rest Client
