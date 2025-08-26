@@ -47,7 +47,7 @@ These environment variables are optional
 Run the following command
 
 ```
-python3 tempo_pumpe.py worklogs.yml
+python tempo_pumpe.py -w worklogs.yml
 ```
 
 
@@ -58,7 +58,7 @@ Here are some common questions and answers.
 
 ### What does the tool?
 
-With the '-i' or '--import' parameter, you point to your worklog logged
+With the '-w' or '--worklogs' parameter, you point to your worklog logged
 in a YAML file. The tool reads and parses the YAML file. It then loops
 through each parsed day. For each day, it loops through each worklog.
 Then, it pushes each worklog via the REST to the Tempo Timesheet API.
