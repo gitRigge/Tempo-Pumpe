@@ -1,12 +1,13 @@
-import os
-import logging
-import yaml
-import sys
 import argparse
+import logging
+import os
+import sys
 from datetime import datetime
-from tempoapiclient import client_v4
+
+import yaml
 from atlassian import Jira
 from dotenv import load_dotenv
+from tempoapiclient import client_v4
 
 
 def calculate_seconds(hours: float):
