@@ -142,7 +142,7 @@ tempo = client_v4.Tempo(
 issue_keys, issue_ids = get_issues()
 
 # Worklogs
-with open(args.worklogs, 'r') as file:
+with open(args.worklogs, 'r', encoding='utf-8') as file:
     content = yaml.safe_load(file)
 
 imports_ok = False
