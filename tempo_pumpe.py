@@ -128,7 +128,8 @@ logging.basicConfig(
     level=logging.INFO)
 
 parser = argparse.ArgumentParser()
-parser.add_argument('worklogs', help='Path to worklogs file')
+parser.add_argument(
+    '-w', '--worklogs', help='Path to worklogs file', required=True)
 args = parser.parse_args()
 
 # Tempo REST Client
