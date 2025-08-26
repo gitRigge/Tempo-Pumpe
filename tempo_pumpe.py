@@ -101,16 +101,22 @@ def get_issue_id(issue_key: str):
         # API Call
         try:
             issue = jira.issue(key=issue_key, fields='id,summary')
-            issue_id = issue['id']
+            issue_id = int(issue['id'])
             summary = issue['fields']['summary']
             set_issues(issue_key, issue_id, summary)
             issue_keys[issue_key] = issue_id
             issue_ids[issue_id] = issue_key
-            return int(issue_id)
-        except Exception:
+            return issue_id
+        except (KeyError, TypeError, AttributeError) as e:
+            logging.error(f"Error retrieving issue {issue_key}: {e}")
             return -1
+        except Exception as e:
+            logging.error(
+                f"Unexpected error retrieving issue {issue_key}: {e}"
+            )
+            raise
     else:
-        return issue_keys[issue_key]
+        return int(issue_keys[issue_key])
 
 
 load_dotenv()
