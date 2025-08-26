@@ -112,6 +112,8 @@ if len(content):
                     description=description,
                     startTime=start_time
                 )
+                if logged_wl['issue']['id'] not in issue_ids:
+                    issue_ids[logged_wl['issue']['id']] = issue_key
                 logged[logged_wl['tempoWorklogId']] = {
                     "Date": logged_wl['startDate'],
                     "Time": logged_wl['startTime'],
